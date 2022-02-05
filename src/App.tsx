@@ -1,12 +1,12 @@
 import "./App.scss";
+import { Header } from "./components/Header";
 import { Scene } from "./components/Scene";
 
 function App() {
   return (
-    <div className="h-full">
-      <div className="w-full h-full">
-        <Scene />
-      </div>
+    <div className="w-full h-full">
+      <Header />
+      <Scene />
     </div>
   );
 }
