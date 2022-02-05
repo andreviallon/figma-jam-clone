@@ -3,8 +3,10 @@ import { Scene } from "./components/Scene";
 
 function App() {
   return (
-    <div className="App">
-      <Scene />
+    <div className="h-full">
+      <div className="w-full h-full">
+        <Scene />
+      </div>
     </div>
   );
 }
