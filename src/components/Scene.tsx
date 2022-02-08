@@ -1,5 +1,6 @@
+import Konva from "konva";
 import { useEffect, useState } from "react";
-import { Layer, Rect, Stage } from "react-konva";
+import { Layer, Stage } from "react-konva";
 
 interface Window {
   width: number;
@@ -27,7 +28,10 @@ export const Scene = () => {
 
   return (
     <>
-      <Stage width={windowDimensions.width} height={windowDimensions.height}>
+      <Stage
+        width={windowDimensions.width - 320}
+        height={windowDimensions.height - 60}
+      >
         <Layer>
           <Rect x={100} y={100} width={200} height={200} fill="#555555" />
         </Layer>
