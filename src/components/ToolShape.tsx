@@ -4,12 +4,12 @@ import { Shape } from "../models/shape";
 
 interface IToolShape {
   faIcon: IconProp;
-  shape: Shape;
+  shape: ShapeEnum;
 }
 
 const handleDragStart = (
   event: React.DragEvent<HTMLDivElement>,
-  shape: Shape
+  shape: ShapeEnum
 ) => {
   if (shape) {
     const offsetX = event.nativeEvent.offsetX;
