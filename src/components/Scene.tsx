@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Layer, Stage } from "react-konva";
+import { Shape } from "../models/shape";
 import { Rectangle } from "./Rectangle";
 
 interface Window {
@@ -17,6 +18,8 @@ export const Scene = () => {
     getWindowDimensions()
   );
 
+  const stageRef = useRef(null);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowDimensions(getWindowDimensions());
@@ -31,9 +34,19 @@ export const Scene = () => {
       <Stage
         width={windowDimensions.width - 320}
         height={windowDimensions.height - 56}
+        ref={stageRef}
       >
         <Layer>
-          <Rectangle x={100} y={100} />
+          {shapes?.map((shape, index) => (
+            <Rectangle
+              key={index}
+              x={shape.x}
+              y={shape.y}
+              width={shape.width}
+              height={shape.height}
+              color={shape.color}
+            />
+          ))}
         </Layer>
       </Stage>
     </>
