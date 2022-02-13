@@ -1,6 +1,6 @@
 import { Rect } from "react-konva";
 
-interface IRectangle {
+interface Props {
   x: number;
   y: number;
   width?: number;
@@ -9,7 +9,7 @@ interface IRectangle {
   isPlaceholder?: boolean;
 }
 
-export const Rectangle: React.FC<IRectangle> = ({
+export const Rectangle: React.FC<Props> = ({
   x,
   y,
   width = 100,

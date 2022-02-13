@@ -13,7 +13,11 @@ function getWindowDimensions(): Window {
   return { width, height };
 }
 
-export const Scene = () => {
+interface Props {
+  shapes: Shape[] | undefined;
+}
+
+export const Scene: React.FC<Props> = ({ shapes }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
