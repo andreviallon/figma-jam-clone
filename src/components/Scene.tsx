@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Layer, Stage } from "react-konva";
-import { Shape } from "../models/shape";
 import { Rectangle } from "./Rectangle";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 
 interface Window {
   width: number;
@@ -13,11 +14,9 @@ function getWindowDimensions(): Window {
   return { width, height };
 }
 
-interface Props {
-  shapes: Shape[] | undefined;
-}
+export const Scene = () => {
+  const { shapes } = useSelector((state: RootState) => state.stage);
 
-export const Scene: React.FC<Props> = ({ shapes }) => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
