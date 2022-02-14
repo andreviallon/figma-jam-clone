@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Layer, Stage } from "react-konva";
 import { Shape } from "../models/shape";
 import { Rectangle } from "./Rectangle";

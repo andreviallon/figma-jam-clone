@@ -1,3 +1,4 @@
+import React from "react";
 import { Rect } from "react-konva";
 
 interface Props {
@@ -25,6 +26,7 @@ export const Rectangle: React.FC<Props> = ({
       height={height}
       fill={color}
       opacity={isPlaceholder ? 0.6 : 1}
+      draggable={true}
     />
   );
 };
