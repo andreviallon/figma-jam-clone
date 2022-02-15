@@ -1,6 +1,6 @@
 import { StageShapeAction, StageState } from "./StageStateModel";
-import * as actionTypes from "./StageActionTypes";
-import { ShapeEnum } from "../models/shape";
+import { ShapeEnum } from "../../models/shape";
+import { SHAPE_ACTIONS } from "./StageActions";
 
 export const initialStageState: StageState = {
   shapes: [
@@ -28,7 +28,7 @@ export const stageReducer = (
   action: StageShapeAction
 ): StageState => {
   switch (action.type) {
-    case actionTypes.ADD_SHAPE:
+    case SHAPE_ACTIONS.ADD_SHAPE:
       const shape = action.shape;
 
       if (shape) {
@@ -41,7 +41,7 @@ export const stageReducer = (
         return state;
       }
 
-    case actionTypes.REMOVE_SHAPE:
+    case SHAPE_ACTIONS.REMOVE_SHAPE:
       return {
         ...state,
         shapes: state.shapes?.filter((_shape, index) => index !== action.index),

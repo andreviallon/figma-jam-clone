@@ -1,11 +1,7 @@
-import { Shape } from "../models/shape";
+import { Shape } from "../../models/shape";
 
 export type StageState = {
   shapes?: Shape[];
-};
-
-export type CartState = {
-  shapes: Shape[];
 };
 
 export type StageShapeAction = {
