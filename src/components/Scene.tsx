@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Layer, Stage } from "react-konva";
 import { Rectangle } from "./Rectangle";
 import { useDispatch, useSelector } from "react-redux";
