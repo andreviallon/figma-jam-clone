@@ -1,6 +1,4 @@
-import { ShapeEnum } from "../models/shape";
 import { ToolBtn } from "./ToolBtn";
-import { ToolShape } from "./ToolShape";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { ToolEnum } from "../models/tool";
@@ -38,8 +36,20 @@ export const ToolBar = () => {
           />
         </div>
         <div className="h-px border-b border-solid border-gray-300 mx-2 my-3" />
-        <ToolShape faIcon={faSquare} shape={ShapeEnum.RECTANGLE} />
-        <ToolShape faIcon={faCircle} shape={ShapeEnum.CIRCLE} />
+        <div onClick={() => setSelectedTool(ToolEnum.RECTANGLE)}>
+          <ToolBtn
+            faIcon={faSquare}
+            tool={ToolEnum.RECTANGLE}
+            selectedTool={selectedTool}
+          />
+        </div>
+        <div onClick={() => setSelectedTool(ToolEnum.CIRCLE)}>
+          <ToolBtn
+            faIcon={faCircle}
+            tool={ToolEnum.CIRCLE}
+            selectedTool={selectedTool}
+          />
+        </div>
       </div>
     </div>
   );
