@@ -105,9 +105,10 @@ export const Scene = () => {
         onMouseUp={handleMouseUp}
       >
         <Layer>
-          {shapes?.map((shape, index) => (
-            <Rectangle
+          {shapesToDraw?.map((shape, index) => (
+            <ShapeFactory
               key={index}
+              shape={shape.shape}
               x={shape.x}
               y={shape.y}
               width={shape.width}
