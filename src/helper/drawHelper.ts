@@ -56,3 +56,12 @@ export const drawShape = (
     height: y - shapeY,
   };
 };
+
+export const drawEnd = (shape: Shape): Shape => {
+  if (!shape?.width && !shape.height) {
+    shape.width = 100;
+    shape.height = 100;
+  }
+
+  return shape;
+};
