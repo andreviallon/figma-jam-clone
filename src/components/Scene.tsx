@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { Layer, Stage } from "react-konva";
-import { Rectangle } from "./Rectangle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
-import { Shape, ShapeEnum } from "../models/shape";
+import { Shape } from "../models/shape";
 import { KonvaEventObject } from "konva/lib/Node";
 import { addShape } from "../state/stage/StageActions";
+import { resetCursor, setCursor } from "../helper/cursorHelper";
+import { drawBasicShape, drawEnd, drawShape } from "../helper/drawHelper";
+import { Layer, Stage } from "react-konva";
+import { ToolEnum } from "../models/tool";
+import { ShapeFactory } from "./ShapeFactory";
 
 interface Window {
   width: number;
@@ -19,11 +22,13 @@ function getWindowDimensions(): Window {
 
 export const Scene = () => {
   const { shapes } = useSelector((state: RootState) => state.stage);
-  const [newShape, setNewShape] = useState<Array<Shape>>([]);
+  const { selectedTool } = useSelector((state: RootState) => state.tool);
+  const [newShape, setNewShape] = useState<Shape | null>(null);
+  const [shapesToDraw, setShapesToDraw] = useState<Shape[]>([]);
 
   const dispatch = useDispatch();
 
-  const drawShape = (shape: Shape) => {
+  const dispatchDrawShape = (shape: Shape) => {
     dispatch(addShape(shape));
   };
 
@@ -40,59 +45,34 @@ export const Scene = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const toDraw: Shape[] = [];
+
+    if (shapes) toDraw.push(...shapes);
+
+    if (newShape) toDraw.push(newShape);
+
+    setShapesToDraw(toDraw);
+  }, [shapes, newShape]);
+
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (newShape.length === 0) {
-      const shape: Shape = {
-        shape: ShapeEnum.RECTANGLE,
-        x: event?.target?.getStage()?.getPointerPosition()?.x ?? 0,
-        y: event?.target?.getStage()?.getPointerPosition()?.y ?? 0,
-        width: 0,
-        height: 0,
-        color: "blue",
-      };
-      setNewShape([shape]);
+    if (selectedTool === ToolEnum.POINTER) {
     }
-    console.log("newShape", newShape);
+    if (selectedTool === ToolEnum.MOVE) {
+    }
+    if (selectedTool === ToolEnum.RECTANGLE)
+      setNewShape(drawBasicShape(selectedTool, event));
+    if (selectedTool === ToolEnum.CIRCLE)
+      setNewShape(drawBasicShape(selectedTool, event));
   };
 
   const handleMouseMove = (event: KonvaEventObject<MouseEvent>) => {
-    if (newShape.length === 1) {
-      const sx = newShape[0].x;
-      const sy = newShape[0].y;
-      const x = event?.target?.getStage()?.getPointerPosition()?.x ?? 0;
-      const y = event?.target?.getStage()?.getPointerPosition()?.y ?? 0;
-      setNewShape([
-        {
-          shape: ShapeEnum.RECTANGLE,
-          x: sx,
-          y: sy,
-          width: x - sx,
-          height: y - sy,
-          color: "blue",
-        },
-      ]);
-      console.log("newShape", newShape);
-    }
+    newShape && setNewShape(drawShape(newShape, event));
   };
 
-  const handleMouseUp = (event: KonvaEventObject<MouseEvent>) => {
-    if (newShape.length === 1) {
-      const sx = newShape[0].x;
-      const sy = newShape[0].y;
-      const x = event?.target?.getStage()?.getPointerPosition()?.x ?? 0;
-      const y = event?.target?.getStage()?.getPointerPosition()?.y ?? 0;
-
-      const shapeToAdd = {
-        shape: ShapeEnum.RECTANGLE,
-        x: sx,
-        y: sy,
-        width: x - sx,
-        height: y - sy,
-        color: "blue",
-      };
-      drawShape(shapeToAdd);
-      setNewShape([]);
-    }
+  const handleMouseUp = () => {
+    newShape && dispatchDrawShape(drawEnd(newShape));
+    setNewShape(null);
   };
 
   return (
@@ -100,6 +80,8 @@ export const Scene = () => {
       <Stage
         width={windowDimensions.width - 320}
         height={windowDimensions.height - 56}
+        onMouseEnter={() => setCursor(selectedTool)}
+        onMouseLeave={resetCursor}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
