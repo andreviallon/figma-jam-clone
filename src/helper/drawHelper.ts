@@ -1,8 +1,10 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { Shape, ShapeEnum } from "../models/shape";
 import { ToolEnum } from "../models/tool";
+import { generateId } from "./idHelper";
 
 const basicRectangle: Shape = {
+  id: generateId(),
   shape: ShapeEnum.RECTANGLE,
   x: 0,
   y: 0,
@@ -12,6 +14,7 @@ const basicRectangle: Shape = {
 };
 
 const basicCircle: Shape = {
+  id: generateId(),
   shape: ShapeEnum.CIRCLE,
   x: 0,
   y: 0,

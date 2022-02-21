@@ -1,10 +1,12 @@
 import { StageShapeAction, StageState } from "./StageStateModel";
 import { ShapeEnum } from "../../models/shape";
 import { SHAPE_ACTIONS } from "./StageActions";
+import { generateId } from "../../helper/idHelper";
 
 export const initialStageState: StageState = {
   shapes: [
     {
+      id: generateId(),
       color: "red",
       height: 100,
       width: 100,
@@ -13,6 +15,7 @@ export const initialStageState: StageState = {
       shape: ShapeEnum.RECTANGLE,
     },
     {
+      id: generateId(),
       color: "blue",
       height: 50,
       width: 200,

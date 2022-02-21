@@ -5,6 +5,7 @@ export enum ShapeEnum {
 }
 
 export interface Shape {
+  id: string;
   shape: ShapeEnum;
   x: number;
   y: number;
