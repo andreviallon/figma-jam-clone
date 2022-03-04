@@ -2,8 +2,6 @@ import { CursorEnum } from "../models/cursor";
 import { ToolEnum } from "../models/tool";
 
 export const setCursor = (selectedTool: ToolEnum) => {
-  console.log(selectedTool);
-
   if (selectedTool === ToolEnum.POINTER) {
     document.body.style.cursor = CursorEnum.DEFAULT;
   }
