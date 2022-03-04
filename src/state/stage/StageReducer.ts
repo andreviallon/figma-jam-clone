@@ -12,6 +12,7 @@ export const initialStageState: StageState = {
       width: 100,
       x: 100,
       y: 100,
+      rotation: 0,
       shape: ShapeEnum.RECTANGLE,
     },
     {
@@ -21,6 +22,7 @@ export const initialStageState: StageState = {
       width: 200,
       x: 300,
       y: 400,
+      rotation: 45,
       shape: ShapeEnum.RECTANGLE,
     },
   ],

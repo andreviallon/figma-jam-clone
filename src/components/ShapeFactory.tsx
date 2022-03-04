@@ -8,6 +8,7 @@ interface Props {
   y: number;
   width?: number;
   height?: number;
+  rotation: number;
   color?: string;
   isSelected?: boolean;
   onSelect: (id: string) => void;
@@ -20,6 +21,7 @@ export const ShapeFactory: React.FC<Props> = ({
   y,
   width = 100,
   height = 100,
+  rotation,
   color = "#555555",
   isSelected = false,
   onSelect,
@@ -32,6 +34,7 @@ export const ShapeFactory: React.FC<Props> = ({
         y={y}
         width={width}
         height={height}
+        rotation={rotation}
         color={color}
         isSelected={isSelected}
         onSelect={(id: string) => onSelect(id)}
@@ -45,6 +48,7 @@ export const ShapeFactory: React.FC<Props> = ({
         y={y}
         width={width}
         height={height}
+        rotation={rotation}
         color={color}
         isSelected={isSelected}
         onSelect={(id: string) => onSelect(id)}

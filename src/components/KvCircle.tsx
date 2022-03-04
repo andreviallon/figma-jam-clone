@@ -8,6 +8,7 @@ interface Props {
   width?: number;
   height?: number;
   color?: string;
+  rotation: number;
   isSelected?: boolean;
   onSelect: (id: string) => void;
 }
@@ -19,6 +20,7 @@ export const KvCircle: React.FC<Props> = ({
   width = 100,
   height = 100,
   color = "#555555",
+  rotation = 0,
   isSelected = false,
   onSelect,
 }) => {
@@ -40,6 +42,7 @@ export const KvCircle: React.FC<Props> = ({
         ref={shapeRef}
         width={width}
         height={height}
+        rotation={rotation}
         fill={color}
         draggable={true}
         isSelected={isSelected}
