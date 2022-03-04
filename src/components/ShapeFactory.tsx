@@ -1,5 +1,4 @@
-import React from "react";
-import { ShapeEnum } from "../models/shape";
+import { Shape, ShapeEnum } from "../models/shape";
 import { KvCircle } from "./KvCircle";
 import { KvRectangle } from "./KvRectangle";
 interface Props {
