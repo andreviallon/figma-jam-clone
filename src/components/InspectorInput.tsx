@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent, useEffect } from "react";
+import { useState, KeyboardEvent, useEffect, ChangeEvent } from "react";
 import { KeysEnum } from "../models/keys";
 
 interface Props {
@@ -12,15 +12,22 @@ export const InspectorInput: React.FC<Props> = ({
   value,
   updateValue,
 }) => {
-  const [newValue, setNewValue] = useState<number>(value);
+  const [inputValue, setInputValue] = useState<string>(value.toString());
 
   useEffect(() => {
-    setNewValue(value);
-  }, [label, newValue, value]);
+    setInputValue(value.toString());
+  }, [value]);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === KeysEnum.ENTER) updateValue(newValue);
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event?.currentTarget?.value);
   };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.code === KeysEnum.ENTER)
+      updateValue(inputValueToNumber(event?.currentTarget?.value));
+  };
+
+  const inputValueToNumber = (str: string) => parseInt(str);
 
   return (
     <div className="flex flex-col gap-0.5">
@@ -31,11 +38,9 @@ export const InspectorInput: React.FC<Props> = ({
         className="text-xs text-gray-700 font-medium w-full p-2 bg-gray-100 border border-gray-300"
         type="number"
         name="name"
-        value={newValue}
-        onChange={(event) =>
-          setNewValue(parseInt(event?.currentTarget?.value, 10))
-        }
-        onBlur={() => updateValue(newValue)}
+        value={inputValue}
+        onChange={(event) => handleInputChange(event)}
+        onBlur={() => updateValue(inputValueToNumber(inputValue))}
         onKeyDown={handleKeyDown}
       />
     </div>
