@@ -35,7 +35,6 @@ export const ToolBar = () => {
             selectedTool={selectedTool}
           />
         </div>
-        <div className="h-px border-b border-solid border-gray-300 mx-2 my-3" />
         <div onClick={() => setSelectedTool(ToolEnum.RECTANGLE)}>
           <ToolBtn
             faIcon={faSquare}
