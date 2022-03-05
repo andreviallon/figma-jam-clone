@@ -1,6 +1,7 @@
 import { Shape, ShapeEnum } from "../models/shape";
 import { KvCircle } from "./KvCircle";
 import { KvRectangle } from "./KvRectangle";
+
 interface Props {
   id: string;
   shape: ShapeEnum;
@@ -12,6 +13,7 @@ interface Props {
   color?: string;
   isSelected?: boolean;
   onSelect: (id: string) => void;
+  onUpdateShape: (newShape: Shape) => void;
 }
 
 export const ShapeFactory: React.FC<Props> = ({
@@ -25,6 +27,7 @@ export const ShapeFactory: React.FC<Props> = ({
   color = "#555555",
   isSelected = false,
   onSelect,
+  onUpdateShape,
 }) => {
   if (shape === ShapeEnum.RECTANGLE) {
     return (
@@ -38,6 +41,7 @@ export const ShapeFactory: React.FC<Props> = ({
         color={color}
         isSelected={isSelected}
         onSelect={(id: string) => onSelect(id)}
+        onUpdateShape={(newShape: Shape) => onUpdateShape(newShape)}
       />
     );
   } else {

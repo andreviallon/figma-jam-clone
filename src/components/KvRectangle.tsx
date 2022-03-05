@@ -13,6 +13,7 @@ interface Props {
   rotation: number;
   isSelected?: boolean;
   onSelect: (id: string) => void;
+  onUpdateShape: (newShape: Shape) => void;
 }
 
 export const KvRectangle: React.FC<Props> = ({
@@ -25,9 +26,25 @@ export const KvRectangle: React.FC<Props> = ({
   rotation = 0,
   isSelected = false,
   onSelect,
+  onUpdateShape,
 }) => {
   const shapeRef: any = React.useRef();
   const trRef: any = React.useRef();
+
+  const dispatchUpdateShape = () => {
+    const newShape: Shape = {
+      id,
+      color,
+      shape: ShapeEnum.RECTANGLE,
+      x: Math.round(shapeRef.current.attrs.x),
+      y: Math.round(shapeRef.current.attrs.y),
+      width: Math.round(shapeRef.current.attrs.width),
+      height: Math.round(shapeRef.current.attrs.height),
+      rotation: Math.round(shapeRef.current.attrs.rotation),
+    };
+
+    onUpdateShape(newShape);
+  };
 
   useEffect(() => {
     if (isSelected) {
@@ -49,6 +66,7 @@ export const KvRectangle: React.FC<Props> = ({
         draggable={true}
         isSelected={isSelected}
         onClick={() => onSelect(id)}
+        onDragMove={() => dispatchUpdateShape()}
       />
       {isSelected && (
         <Transformer
