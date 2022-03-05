@@ -51,11 +51,11 @@ export const KvCircle: React.FC<Props> = ({
       {isSelected && (
         <Transformer
           ref={trRef}
-          boundBoxFunc={(oldBox, newBox) => {
-            if (newBox.width < 5 || newBox.height < 5) {
-              return oldBox;
+          boundBoxFunc={(prevShape, newShape) => {
+            if (newShape.width < 5 || newShape.height < 5) {
+              return prevShape;
             }
-            return newBox;
+            return newShape;
           }}
         />
       )}
