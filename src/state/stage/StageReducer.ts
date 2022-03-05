@@ -46,6 +46,24 @@ export const stageReducer = (
         return state;
       }
 
+    case SHAPE_ACTIONS.UPDATE_SHAPE:
+      if (state.shapes) {
+        const newShapesArray = [];
+
+        for (const shape of state.shapes) {
+          newShapesArray.push(
+            action.shape?.id === shape.id ? action.shape : shape
+          );
+        }
+
+        return {
+          ...state,
+          shapes: newShapesArray,
+        };
+      } else {
+        return state;
+      }
+
     case SHAPE_ACTIONS.REMOVE_SHAPE:
       return {
         ...state,
