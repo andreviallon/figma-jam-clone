@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Rect, Transformer } from "react-konva";
-import { useDispatch } from "react-redux";
-import { selectShape } from "../state/selection/SelectionActions";
+import { Shape, ShapeEnum } from "../models/shape";
 
 interface Props {
   id: string;
@@ -38,8 +37,16 @@ export const KvRectangle: React.FC<Props> = ({
       shape: ShapeEnum.RECTANGLE,
       x: Math.round(shapeRef.current.attrs.x),
       y: Math.round(shapeRef.current.attrs.y),
-      width: Math.round(shapeRef.current.attrs.width),
-      height: Math.round(shapeRef.current.attrs.height),
+      width: Math.round(
+        shapeRef.current.attrs.scaleX
+          ? shapeRef.current.attrs.width * shapeRef.current.attrs.scaleX
+          : shapeRef.current.attrs.width
+      ),
+      height: Math.round(
+        shapeRef.current.attrs.scaleY
+          ? shapeRef.current.attrs.height * shapeRef.current.attrs.scaleY
+          : shapeRef.current.attrs.height
+      ),
       rotation: Math.round(shapeRef.current.attrs.rotation),
     };
 
@@ -63,10 +70,14 @@ export const KvRectangle: React.FC<Props> = ({
         height={height}
         rotation={rotation}
         fill={color}
-        draggable={true}
+        draggable
         isSelected={isSelected}
         onClick={() => onSelect(id)}
+        onDragStart={() => onSelect(id)}
         onDragMove={() => dispatchUpdateShape()}
+        onTransform={() => dispatchUpdateShape()}
+        onMouseDown={() => dispatchUpdateShape()}
+        onMouseUp={() => dispatchUpdateShape()}
       />
       {isSelected && (
         <Transformer
