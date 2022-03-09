@@ -7,7 +7,7 @@ export const initialStageState: StageState = {
   shapes: [
     {
       id: generateId(),
-      color: "red",
+      color: "#4523fa",
       height: 100,
       width: 100,
       x: 100,
@@ -17,7 +17,7 @@ export const initialStageState: StageState = {
     },
     {
       id: generateId(),
-      color: "blue",
+      color: "#555555",
       height: 50,
       width: 200,
       x: 300,
