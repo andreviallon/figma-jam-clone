@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Shape } from "../models/shape";
 import { updateShape } from "../state/stage/StageActions";
 import { RootState } from "../state/store";
+import { InspectorColorInput } from "./InspectorColorInput";
 import { InspectorGroupLabel } from "./InspectorGroupLabel";
 import { InspectorInput } from "./InspectorInput";
 
@@ -17,7 +18,7 @@ export const Inspector = () => {
 
   const dispatch = useDispatch();
 
-  const dispatchUpdateShape = (key: string, value: number) => {
+  const dispatchUpdateShape = (key: string, value: number | string) => {
     if (selectedShape)
       dispatch(updateShape({ ...selectedShape, [key]: value }));
   };
@@ -67,6 +68,12 @@ export const Inspector = () => {
             </div>
             <div className="mt-2">
               <InspectorGroupLabel label="Fill" />
+              <InspectorColorInput
+                color={selectedShape.color}
+                updateValue={(newValue) =>
+                  dispatchUpdateShape("color", newValue)
+                }
+              />
             </div>
             <div className="mt-2">
               <InspectorGroupLabel label="Stroke" />
