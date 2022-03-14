@@ -7,7 +7,7 @@ interface Props {
   updateValue: (value: number) => void;
 }
 
-export const InspectorInput: React.FC<Props> = ({
+export const InspectorNumberInput: React.FC<Props> = ({
   label,
   value,
   updateValue,
@@ -37,7 +37,6 @@ export const InspectorInput: React.FC<Props> = ({
       <input
         className="text-xs text-gray-700 font-medium w-full p-2 bg-gray-100 border border-gray-300"
         type="number"
-        name="name"
         value={inputValue}
         onChange={(event) => handleInputChange(event)}
         onBlur={() => updateValue(inputValueToNumber(inputValue))}

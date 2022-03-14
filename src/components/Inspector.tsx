@@ -33,32 +33,31 @@ export const Inspector = () => {
         {selectedShape ? (
           <>
             <div className="flex flex-col gap-2">
-              <InspectorGroupLabel label="Physical" />
-              <InspectorInput
+              <InspectorNumberInput
                 label="x"
                 value={selectedShape.x}
                 updateValue={(newValue) => dispatchUpdateShape("x", newValue)}
               />
-              <InspectorInput
+              <InspectorNumberInput
                 label="y"
                 value={selectedShape.y}
                 updateValue={(newValue) => dispatchUpdateShape("y", newValue)}
               />
-              <InspectorInput
+              <InspectorNumberInput
                 label="Width"
                 value={selectedShape.width}
                 updateValue={(newValue) =>
                   dispatchUpdateShape("width", newValue)
                 }
               />
-              <InspectorInput
+              <InspectorNumberInput
                 label="Height"
                 value={selectedShape.height}
                 updateValue={(newValue) =>
                   dispatchUpdateShape("height", newValue)
                 }
               />
-              <InspectorInput
+              <InspectorNumberInput
                 label="Rotation"
                 value={selectedShape.rotation}
                 updateValue={(newValue) =>
