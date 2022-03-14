@@ -9,6 +9,9 @@ interface Props {
   width?: number;
   height?: number;
   color?: string;
+  hasStroke: boolean;
+  strokeColor: string;
+  strokeWidth: number;
   rotation: number;
   isSelected?: boolean;
   onSelect: (id: string) => void;
@@ -22,6 +25,9 @@ export const KvRectangle: React.FC<Props> = ({
   width = 100,
   height = 100,
   color = "#555555",
+  hasStroke = false,
+  strokeColor = "#000000",
+  strokeWidth = 1,
   rotation = 0,
   isSelected = false,
   onSelect,
@@ -34,6 +40,9 @@ export const KvRectangle: React.FC<Props> = ({
     const newShape: Shape = {
       id,
       color,
+      hasStroke,
+      strokeColor,
+      strokeWidth,
       shape: ShapeEnum.RECTANGLE,
       x: Math.round(shapeRef.current.attrs.x),
       y: Math.round(shapeRef.current.attrs.y),
@@ -70,13 +79,18 @@ export const KvRectangle: React.FC<Props> = ({
         height={height}
         rotation={rotation}
         fill={color}
+        stroke={hasStroke ? strokeColor : undefined}
+        strokeWidth={hasStroke ? strokeWidth : undefined}
         draggable
         isSelected={isSelected}
         onClick={() => onSelect(id)}
         onDragStart={() => onSelect(id)}
         onDragMove={() => dispatchUpdateShape()}
         onTransform={() => dispatchUpdateShape()}
-        onMouseDown={() => dispatchUpdateShape()}
+        onMouseDown={() => {
+          dispatchUpdateShape();
+          onSelect(id);
+        }}
         onMouseUp={() => dispatchUpdateShape()}
       />
       {isSelected && (

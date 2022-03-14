@@ -11,7 +11,10 @@ const basicRectangle: Shape = {
   width: 0,
   height: 0,
   rotation: 0,
-  color: "blue",
+  color: "#555555",
+  hasStroke: false,
+  strokeColor: "#000000",
+  strokeWidth: 1,
 };
 
 const basicCircle: Shape = {
@@ -22,7 +25,10 @@ const basicCircle: Shape = {
   width: 0,
   height: 0,
   rotation: 0,
-  color: "blue",
+  color: "#555555",
+  hasStroke: true,
+  strokeColor: "#000000",
+  strokeWidth: 5,
 };
 
 export const drawBasicShape = (

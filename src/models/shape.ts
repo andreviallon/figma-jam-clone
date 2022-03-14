@@ -13,4 +13,7 @@ export interface Shape {
   height: number;
   rotation: number;
   color: string;
+  hasStroke: boolean;
+  strokeColor: string;
+  strokeWidth: number;
 }

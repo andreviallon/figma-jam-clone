@@ -14,6 +14,9 @@ export const initialStageState: StageState = {
       y: 100,
       rotation: 0,
       shape: ShapeEnum.RECTANGLE,
+      hasStroke: false,
+      strokeColor: "#000000",
+      strokeWidth: 2,
     },
     {
       id: generateId(),
@@ -24,6 +27,9 @@ export const initialStageState: StageState = {
       y: 400,
       rotation: 45,
       shape: ShapeEnum.RECTANGLE,
+      hasStroke: false,
+      strokeColor: "#000000",
+      strokeWidth: 2,
     },
   ],
 };
