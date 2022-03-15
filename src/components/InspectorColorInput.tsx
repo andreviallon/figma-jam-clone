@@ -9,17 +9,17 @@ export const InspectorColorInput: React.FC<Props> = ({
   color,
   updateValue,
 }) => {
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputColorChange = (event: ChangeEvent<HTMLInputElement>) => {
     updateValue(event.target.value);
   };
 
   return (
     <input
-      className="value"
+      className="w-10 h-10 flex items-center justify-center"
       name="fill"
       type="color"
       value={color}
-      onChange={handleInputChange}
+      onChange={handleInputColorChange}
     />
   );
 };
