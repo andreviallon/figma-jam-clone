@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { Shape } from "../models/shape";
 import { KonvaEventObject } from "konva/lib/Node";
-import { addShape } from "../state/stage/StageActions";
+import { addShape, updateShape } from "../state/stage/StageActions";
 import { resetCursor, setCursor } from "../helper/cursorHelper";
 import { drawBasicShape, drawEnd, drawShape } from "../helper/drawHelper";
 import { Layer, Stage } from "react-konva";
 import { ToolEnum } from "../models/tool";
 import { ShapeFactory } from "./ShapeFactory";
+import {
+  resetSelectedShape,
+  selectShape,
+} from "../state/selection/SelectionActions";
 
 interface Window {
   width: number;
@@ -22,6 +26,9 @@ function getWindowDimensions(): Window {
 
 export const Scene = () => {
   const { shapes } = useSelector((state: RootState) => state.stage);
+  const { selectedShapeId } = useSelector(
+    (state: RootState) => state.selection
+  );
   const { selectedTool } = useSelector((state: RootState) => state.tool);
   const [newShape, setNewShape] = useState<Shape | null>(null);
   const [shapesToDraw, setShapesToDraw] = useState<Shape[]>([]);
@@ -30,6 +37,18 @@ export const Scene = () => {
 
   const dispatchDrawShape = (shape: Shape) => {
     dispatch(addShape(shape));
+  };
+
+  const dispatchSelectShape = (shapeId: string) => {
+    dispatch(selectShape(shapeId));
+  };
+
+  const dispatchResetShape = () => {
+    dispatch(resetSelectedShape());
+  };
+
+  const dispatchUpdateShape = (newShape: Shape) => {
+    dispatch(updateShape(newShape));
   };
 
   const [windowDimensions, setWindowDimensions] = useState(
@@ -56,8 +75,6 @@ export const Scene = () => {
   }, [shapes, newShape]);
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (selectedTool === ToolEnum.POINTER) {
-    }
     if (selectedTool === ToolEnum.MOVE) {
     }
     if (selectedTool === ToolEnum.RECTANGLE)
@@ -85,17 +102,18 @@ export const Scene = () => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onClick={(e) => {
+          e.target === e.target.getStage() && dispatchResetShape();
+        }}
       >
         <Layer>
           {shapesToDraw?.map((shape, index) => (
             <ShapeFactory
               key={index}
-              shape={shape.shape}
-              x={shape.x}
-              y={shape.y}
-              width={shape.width}
-              height={shape.height}
-              color={shape.color}
+              {...shape}
+              isSelected={shape.id === selectedShapeId}
+              onSelect={(id: string) => dispatchSelectShape(id)}
+              onUpdateShape={(newShape: Shape) => dispatchUpdateShape(newShape)}
             />
           ))}
         </Layer>
