@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Shape } from "../models/shape";
 import { updateShape } from "../state/stage/StageActions";
 import { RootState } from "../state/store";
+import { InspectorCheckboxInput } from "./InspectorCheckboxInput";
 import { InspectorColorInput } from "./InspectorColorInput";
 import { InspectorGroupLabel } from "./InspectorGroupLabel";
-import { InspectorInput } from "./InspectorInput";
+import { InspectorNumberInput } from "./InspectorNumberInput";
+import { InspectorTextInput } from "./InspectorTextInput";
 
 export const Inspector = () => {
   const [selectedShape, setSelectedShape] = useState<Shape | undefined>(
@@ -18,7 +20,10 @@ export const Inspector = () => {
 
   const dispatch = useDispatch();
 
-  const dispatchUpdateShape = (key: string, value: number | string) => {
+  const dispatchUpdateShape = (
+    key: string,
+    value: number | string | boolean
+  ) => {
     if (selectedShape)
       dispatch(updateShape({ ...selectedShape, [key]: value }));
   };
@@ -67,15 +72,56 @@ export const Inspector = () => {
             </div>
             <div className="mt-2">
               <InspectorGroupLabel label="Fill" />
-              <InspectorColorInput
-                color={selectedShape.color}
-                updateValue={(newValue) =>
-                  dispatchUpdateShape("color", newValue)
-                }
-              />
+              <div className="flex justify-between items-center">
+                <div className="mr-1">
+                  <InspectorColorInput
+                    color={selectedShape.color}
+                    updateValue={(newValue) =>
+                      dispatchUpdateShape("color", newValue)
+                    }
+                  />
+                </div>
+                <InspectorTextInput
+                  value={selectedShape.color}
+                  updateValue={(newValue) =>
+                    dispatchUpdateShape("color", newValue)
+                  }
+                />
+              </div>
             </div>
             <div className="mt-2">
-              <InspectorGroupLabel label="Stroke" />
+              <div className="flex items-center gap-1 mb-2">
+                <InspectorCheckboxInput
+                  value={selectedShape.hasStroke}
+                  updateValue={(newValue) =>
+                    dispatchUpdateShape("hasStroke", newValue)
+                  }
+                />
+                <InspectorGroupLabel label="Stroke" />
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="mr-1">
+                  <InspectorColorInput
+                    color={selectedShape.strokeColor}
+                    updateValue={(newValue) =>
+                      dispatchUpdateShape("strokeColor", newValue)
+                    }
+                  />
+                </div>
+                <InspectorTextInput
+                  value={selectedShape.strokeColor}
+                  updateValue={(newValue) =>
+                    dispatchUpdateShape("strokeColor", newValue)
+                  }
+                />
+              </div>
+              <InspectorNumberInput
+                label="Stroke Width"
+                value={selectedShape.strokeWidth}
+                updateValue={(newValue) =>
+                  dispatchUpdateShape("strokeWidth", newValue)
+                }
+              />
             </div>
           </>
         ) : (
