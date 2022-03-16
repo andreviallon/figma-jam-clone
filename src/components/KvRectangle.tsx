@@ -46,16 +46,8 @@ export const KvRectangle: React.FC<Props> = ({
       shape: ShapeEnum.RECTANGLE,
       x: Math.round(shapeRef.current.attrs.x),
       y: Math.round(shapeRef.current.attrs.y),
-      width: Math.round(
-        shapeRef.current.attrs.scaleX
-          ? shapeRef.current.attrs.width * shapeRef.current.attrs.scaleX
-          : shapeRef.current.attrs.width
-      ),
-      height: Math.round(
-        shapeRef.current.attrs.scaleY
-          ? shapeRef.current.attrs.height * shapeRef.current.attrs.scaleY
-          : shapeRef.current.attrs.height
-      ),
+      width: Math.round(shapeRef.current.attrs.width),
+      height: Math.round(shapeRef.current.attrs.height),
       rotation: Math.round(shapeRef.current.attrs.rotation),
     };
 
