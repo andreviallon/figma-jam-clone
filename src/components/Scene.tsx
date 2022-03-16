@@ -75,8 +75,6 @@ export const Scene = () => {
   }, [shapes, newShape]);
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (selectedTool === ToolEnum.MOVE) {
-    }
     if (selectedTool === ToolEnum.RECTANGLE)
       setNewShape(drawBasicShape(selectedTool, event));
     if (selectedTool === ToolEnum.CIRCLE)
@@ -105,6 +103,7 @@ export const Scene = () => {
         onClick={(e) => {
           e.target === e.target.getStage() && dispatchResetShape();
         }}
+        draggable={selectedTool === ToolEnum.MOVE}
       >
         <Layer>
           {shapesToDraw?.map((shape, index) => (
@@ -112,6 +111,8 @@ export const Scene = () => {
               key={index}
               {...shape}
               isSelected={shape.id === selectedShapeId}
+              isSelectable={selectedTool === ToolEnum.POINTER}
+              isDraggable={selectedTool === ToolEnum.POINTER}
               onSelect={(id: string) => dispatchSelectShape(id)}
               onUpdateShape={(newShape: Shape) => dispatchUpdateShape(newShape)}
             />

@@ -15,6 +15,8 @@ interface Props {
   strokeColor: string;
   strokeWidth: number;
   isSelected?: boolean;
+  isSelectable: boolean;
+  isDraggable: boolean;
   onSelect: (id: string) => void;
   onUpdateShape: (newShape: Shape) => void;
 }
@@ -32,6 +34,8 @@ export const ShapeFactory: React.FC<Props> = ({
   strokeColor = "#000000",
   strokeWidth = 1,
   isSelected = false,
+  isSelectable = false,
+  isDraggable = false,
   onSelect,
   onUpdateShape,
 }) => {
@@ -49,6 +53,8 @@ export const ShapeFactory: React.FC<Props> = ({
         strokeColor={strokeColor}
         strokeWidth={strokeWidth}
         isSelected={isSelected}
+        isSelectable={isSelectable}
+        isDraggable={isDraggable}
         onSelect={(id: string) => onSelect(id)}
         onUpdateShape={(newShape: Shape) => onUpdateShape(newShape)}
       />

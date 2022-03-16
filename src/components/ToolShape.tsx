@@ -29,7 +29,6 @@ export const ToolShape: React.FC<Props> = ({ faIcon, shape }) => {
   return (
     <div
       className="cursor-pointer flex items-center justify-center text-lg w-14 h-14 text-neutral-900 hover:bg-neutral-200"
-      draggable
       onDragStart={(e) => handleDragStart(e, shape)}
     >
       <FontAwesomeIcon icon={faIcon} />

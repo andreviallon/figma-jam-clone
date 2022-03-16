@@ -14,6 +14,8 @@ interface Props {
   strokeWidth: number;
   rotation: number;
   isSelected?: boolean;
+  isDraggable: boolean;
+  isSelectable: boolean;
   onSelect: (id: string) => void;
   onUpdateShape: (newShape: Shape) => void;
 }
@@ -30,6 +32,8 @@ export const KvRectangle: React.FC<Props> = ({
   strokeWidth = 1,
   rotation = 0,
   isSelected = false,
+  isDraggable = false,
+  isSelectable = false,
   onSelect,
   onUpdateShape,
 }) => {
@@ -55,11 +59,11 @@ export const KvRectangle: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    if (isSelected) {
+    if (isSelectable && isSelected) {
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
-  }, [isSelected]);
+  }, [isSelectable, isSelected]);
 
   return (
     <>
@@ -73,7 +77,7 @@ export const KvRectangle: React.FC<Props> = ({
         fill={color}
         stroke={hasStroke ? strokeColor : undefined}
         strokeWidth={hasStroke ? strokeWidth : undefined}
-        draggable
+        draggable={isDraggable}
         isSelected={isSelected}
         onClick={() => onSelect(id)}
         onDragStart={() => onSelect(id)}
@@ -85,7 +89,7 @@ export const KvRectangle: React.FC<Props> = ({
         }}
         onMouseUp={() => dispatchUpdateShape()}
       />
-      {isSelected && (
+      {isSelectable && isSelected && (
         <Transformer
           ref={trRef}
           boundBoxFunc={(prevShape, newShape) => {
