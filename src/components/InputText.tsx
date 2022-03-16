@@ -2,12 +2,12 @@ import { useState, KeyboardEvent, useEffect, ChangeEvent } from "react";
 import { KeysEnum } from "../models/keys";
 
 interface Props {
-  label: string;
-  value: number;
-  updateValue: (value: number) => void;
+  label?: string;
+  value: string;
+  updateValue: (value: string) => void;
 }
 
-export const InspectorNumberInput: React.FC<Props> = ({
+export const InputText: React.FC<Props> = ({
   label,
   value,
   updateValue,
@@ -23,23 +23,23 @@ export const InspectorNumberInput: React.FC<Props> = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.code === KeysEnum.ENTER)
-      updateValue(inputValueToNumber(event?.currentTarget?.value));
+    if (event.code === KeysEnum.ENTER) updateValue(event?.currentTarget?.value);
   };
 
-  const inputValueToNumber = (str: string) => parseInt(str);
-
   return (
-    <div className="flex flex-col gap-0.5">
-      <label className="text-xs text-gray-400 font-medium capitalize">
-        {label}
-      </label>
+    <div className="flex flex-col gap-0.5 w-full">
+      {label && (
+        <label className="text-xs text-gray-400 font-medium capitalize">
+          {label}
+        </label>
+      )}
+
       <input
         className="text-xs text-gray-700 font-medium w-full p-2 bg-gray-100 border border-gray-300"
-        type="number"
+        type="text"
         value={inputValue}
         onChange={(event) => handleInputChange(event)}
-        onBlur={() => updateValue(inputValueToNumber(inputValue))}
+        onBlur={() => updateValue(inputValue)}
         onKeyDown={handleKeyDown}
       />
     </div>

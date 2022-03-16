@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Shape } from "../models/shape";
 import { updateShape } from "../state/stage/StageActions";
 import { RootState } from "../state/store";
-import { InspectorCheckboxInput } from "./InspectorCheckboxInput";
-import { InspectorColorInput } from "./InspectorColorInput";
+import { InputCheckbox } from "./InputCheckbox";
+import { InputColor } from "./InputColor";
 import { InspectorGroupLabel } from "./InspectorGroupLabel";
-import { InspectorNumberInput } from "./InspectorNumberInput";
-import { InspectorTextInput } from "./InspectorTextInput";
+import { InputNumber } from "./InputNumber";
+import { InputText } from "./InputText";
 
 export const Inspector = () => {
   const [selectedShape, setSelectedShape] = useState<Shape | undefined>(
@@ -38,31 +38,31 @@ export const Inspector = () => {
         {selectedShape ? (
           <>
             <div className="flex flex-col gap-2">
-              <InspectorNumberInput
+              <InputNumber
                 label="x"
                 value={selectedShape.x}
                 updateValue={(newValue) => dispatchUpdateShape("x", newValue)}
               />
-              <InspectorNumberInput
+              <InputNumber
                 label="y"
                 value={selectedShape.y}
                 updateValue={(newValue) => dispatchUpdateShape("y", newValue)}
               />
-              <InspectorNumberInput
+              <InputNumber
                 label="Width"
                 value={selectedShape.width}
                 updateValue={(newValue) =>
                   dispatchUpdateShape("width", newValue)
                 }
               />
-              <InspectorNumberInput
+              <InputNumber
                 label="Height"
                 value={selectedShape.height}
                 updateValue={(newValue) =>
                   dispatchUpdateShape("height", newValue)
                 }
               />
-              <InspectorNumberInput
+              <InputNumber
                 label="Rotation"
                 value={selectedShape.rotation}
                 updateValue={(newValue) =>
@@ -74,14 +74,14 @@ export const Inspector = () => {
               <InspectorGroupLabel label="Fill" />
               <div className="flex justify-between items-center">
                 <div className="mr-1">
-                  <InspectorColorInput
+                  <InputColor
                     color={selectedShape.color}
                     updateValue={(newValue) =>
                       dispatchUpdateShape("color", newValue)
                     }
                   />
                 </div>
-                <InspectorTextInput
+                <InputText
                   value={selectedShape.color}
                   updateValue={(newValue) =>
                     dispatchUpdateShape("color", newValue)
@@ -91,7 +91,7 @@ export const Inspector = () => {
             </div>
             <div className="mt-2">
               <div className="flex items-center gap-1 mb-2">
-                <InspectorCheckboxInput
+                <InputCheckbox
                   value={selectedShape.hasStroke}
                   updateValue={(newValue) =>
                     dispatchUpdateShape("hasStroke", newValue)
@@ -101,21 +101,21 @@ export const Inspector = () => {
               </div>
               <div className="flex justify-between items-center">
                 <div className="mr-1">
-                  <InspectorColorInput
+                  <InputColor
                     color={selectedShape.strokeColor}
                     updateValue={(newValue) =>
                       dispatchUpdateShape("strokeColor", newValue)
                     }
                   />
                 </div>
-                <InspectorTextInput
+                <InputText
                   value={selectedShape.strokeColor}
                   updateValue={(newValue) =>
                     dispatchUpdateShape("strokeColor", newValue)
                   }
                 />
               </div>
-              <InspectorNumberInput
+              <InputNumber
                 label="Stroke Width"
                 value={selectedShape.strokeWidth}
                 updateValue={(newValue) =>

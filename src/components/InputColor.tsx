@@ -5,7 +5,7 @@ interface Props {
   updateValue: (value: string) => void;
 }
 
-export const InspectorColorInput: React.FC<Props> = ({
+export const InputColor: React.FC<Props> = ({
   color,
   updateValue,
 }) => {

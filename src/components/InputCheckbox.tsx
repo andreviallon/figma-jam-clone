@@ -5,7 +5,7 @@ interface Props {
   updateValue: (value: boolean) => void;
 }
 
-export const InspectorCheckboxInput: React.FC<Props> = ({
+export const InputCheckbox: React.FC<Props> = ({
   value,
   updateValue,
 }) => {
