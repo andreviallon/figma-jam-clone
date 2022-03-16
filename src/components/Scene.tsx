@@ -113,7 +113,9 @@ export const Scene = () => {
               isSelected={shape.id === selectedShapeId}
               isSelectable={selectedTool === ToolEnum.POINTER}
               isDraggable={selectedTool === ToolEnum.POINTER}
-              onSelect={(id: string) => dispatchSelectShape(id)}
+              onSelect={(id: string) =>
+                selectedTool === ToolEnum.POINTER && dispatchSelectShape(id)
+              }
               onUpdateShape={(newShape: Shape) => dispatchUpdateShape(newShape)}
             />
           ))}
