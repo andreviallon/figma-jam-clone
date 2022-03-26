@@ -9,14 +9,39 @@ import {
   faHandPaper,
   faSquare,
 } from "@fortawesome/free-regular-svg-icons";
+import { KeysEnum } from "../models/keys";
+import { useKeyPress } from "../helper/useKetPress";
+import { useEffect, useState } from "react";
 
 export const ToolBar = () => {
   const dispatch = useDispatch();
   const { selectedTool } = useSelector((state: RootState) => state.tool);
+  const [prevTool, setPrevTool] = useState(ToolEnum.POINTER);
 
   const setSelectedTool = (tool: ToolEnum) => {
     dispatch(selectTool(tool));
   };
+
+  const spacePressed = useKeyPress(KeysEnum.SPACE);
+  const oPressed = useKeyPress(KeysEnum.O);
+  const hPressed = useKeyPress(KeysEnum.H);
+  const rPressed = useKeyPress(KeysEnum.R);
+  const vPressed = useKeyPress(KeysEnum.V);
+
+  useEffect(() => {
+    oPressed && setSelectedTool(ToolEnum.CIRCLE);
+    hPressed && setSelectedTool(ToolEnum.MOVE);
+    rPressed && setSelectedTool(ToolEnum.RECTANGLE);
+    vPressed && setSelectedTool(ToolEnum.POINTER);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [oPressed, hPressed, vPressed, rPressed]);
+
+  useEffect(() => {
+    setPrevTool(selectedTool);
+    spacePressed ? setSelectedTool(ToolEnum.MOVE) : setSelectedTool(prevTool);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spacePressed]);
 
   return (
     <div className="flex z-50 bg-gray-100 w-14">
