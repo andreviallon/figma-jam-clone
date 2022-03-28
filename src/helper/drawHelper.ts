@@ -45,12 +45,14 @@ export const drawBasicShape = (
       ...basicRectangle,
       x: event?.target?.getStage()?.getPointerPosition()?.x ?? 0,
       y: event?.target?.getStage()?.getPointerPosition()?.y ?? 0,
+      id: generateId(),
     };
   } else {
     return {
       ...basicCircle,
       x: event?.target?.getStage()?.getPointerPosition()?.x ?? 0,
       y: event?.target?.getStage()?.getPointerPosition()?.y ?? 0,
+      id: generateId(),
     };
   }
 };
