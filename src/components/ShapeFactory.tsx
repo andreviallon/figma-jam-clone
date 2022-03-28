@@ -7,6 +7,8 @@ interface Props {
   shape: ShapeEnum;
   x: number;
   y: number;
+  offsetX: number;
+  offsetY: number;
   width?: number;
   height?: number;
   rotation: number;
@@ -26,6 +28,8 @@ export const ShapeFactory: React.FC<Props> = ({
   shape,
   x,
   y,
+  offsetX,
+  offsetY,
   width = 100,
   height = 100,
   rotation,
@@ -45,6 +49,8 @@ export const ShapeFactory: React.FC<Props> = ({
         id={id}
         x={x}
         y={y}
+        offsetX={offsetX}
+        offsetY={offsetY}
         width={width}
         height={height}
         rotation={rotation}

@@ -16,4 +16,6 @@ export interface Shape {
   hasStroke: boolean;
   strokeColor: string;
   strokeWidth: number;
+  offsetX: number;
+  offsetY: number;
 }

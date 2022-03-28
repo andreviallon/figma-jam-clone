@@ -6,6 +6,8 @@ interface Props {
   id: string;
   x: number;
   y: number;
+  offsetX: number | undefined;
+  offsetY: number | undefined;
   width?: number;
   height?: number;
   color?: string;
@@ -24,6 +26,8 @@ export const KvRectangle: React.FC<Props> = ({
   id,
   x,
   y,
+  offsetX,
+  offsetY,
   width = 100,
   height = 100,
   color = "#555555",
@@ -47,6 +51,8 @@ export const KvRectangle: React.FC<Props> = ({
       hasStroke,
       strokeColor,
       strokeWidth,
+      offsetX: 0,
+      offsetY: 0,
       shape: ShapeEnum.RECTANGLE,
       x: Math.round(shapeRef.current.attrs.x),
       y: Math.round(shapeRef.current.attrs.y),
@@ -68,9 +74,10 @@ export const KvRectangle: React.FC<Props> = ({
   return (
     <>
       <Rect
-        x={x}
-        y={y}
+        x={offsetX ? x - offsetX : x}
+        y={offsetY ? y - offsetY : y}
         ref={shapeRef}
+        __art
         width={width}
         height={height}
         rotation={rotation}

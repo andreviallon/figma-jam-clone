@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { Shape } from "../models/shape";
@@ -13,6 +13,7 @@ import {
   resetSelectedShape,
   selectShape,
 } from "../state/selection/SelectionActions";
+import { StageOffset } from "../models/stage";
 
 interface Window {
   width: number;
@@ -32,6 +33,8 @@ export const Scene = () => {
   const { selectedTool } = useSelector((state: RootState) => state.tool);
   const [newShape, setNewShape] = useState<Shape | null>(null);
   const [shapesToDraw, setShapesToDraw] = useState<Shape[]>([]);
+
+  const stageRef: any = React.useRef();
 
   const dispatch = useDispatch();
 
@@ -82,17 +85,25 @@ export const Scene = () => {
   };
 
   const handleMouseMove = (event: KonvaEventObject<MouseEvent>) => {
-    newShape && setNewShape(drawShape(newShape, event));
+    newShape && setNewShape(drawShape(newShape, event, getStageOffset()));
   };
 
   const handleMouseUp = () => {
-    newShape && dispatchDrawShape(drawEnd(newShape));
+    newShape && dispatchDrawShape(drawEnd(newShape, getStageOffset()));
     setNewShape(null);
+  };
+
+  const getStageOffset = (): StageOffset => {
+    return {
+      x: stageRef.current.attrs.x,
+      y: stageRef.current.attrs.y,
+    };
   };
 
   return (
     <>
       <Stage
+        ref={stageRef}
         width={windowDimensions.width - 320}
         height={windowDimensions.height - 56}
         onMouseEnter={() => setCursor(selectedTool)}

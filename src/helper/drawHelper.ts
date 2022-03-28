@@ -2,12 +2,15 @@ import { KonvaEventObject } from "konva/lib/Node";
 import { Shape, ShapeEnum } from "../models/shape";
 import { ToolEnum } from "../models/tool";
 import { generateId } from "./idHelper";
+import { StageOffset } from "../models/stage";
 
 const basicRectangle: Shape = {
   id: generateId(),
   shape: ShapeEnum.RECTANGLE,
   x: 0,
   y: 0,
+  offsetX: 0,
+  offsetY: 0,
   width: 0,
   height: 0,
   rotation: 0,
@@ -22,6 +25,8 @@ const basicCircle: Shape = {
   shape: ShapeEnum.CIRCLE,
   x: 0,
   y: 0,
+  offsetX: 0,
+  offsetY: 0,
   width: 0,
   height: 0,
   rotation: 0,
@@ -52,7 +57,8 @@ export const drawBasicShape = (
 
 export const drawShape = (
   shape: Shape,
-  event: KonvaEventObject<MouseEvent>
+  event: KonvaEventObject<MouseEvent>,
+  offset: StageOffset
 ): Shape => {
   const shapeX = shape?.x;
   const shapeY = shape?.y;
@@ -65,14 +71,19 @@ export const drawShape = (
     y: shapeY,
     width: x - shapeX,
     height: y - shapeY,
+    offsetX: offset.x,
+    offsetY: offset.y,
   };
 };
 
-export const drawEnd = (shape: Shape): Shape => {
+export const drawEnd = (shape: Shape, offset: StageOffset): Shape => {
   if (!shape?.width && !shape.height) {
     shape.width = 100;
     shape.height = 100;
   }
+
+  shape.offsetX = offset.x;
+  shape.offsetY = offset.y;
 
   return shape;
 };
