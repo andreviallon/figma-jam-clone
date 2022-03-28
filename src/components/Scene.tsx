@@ -74,6 +74,10 @@ export const Scene = () => {
     setShapesToDraw(toDraw);
   }, [shapes, newShape]);
 
+  useEffect(() => {
+    setCursor(selectedTool);
+  }, [selectedTool]);
+
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
     if (selectedTool === ToolEnum.RECTANGLE)
       setNewShape(drawBasicShape(selectedTool, event));
