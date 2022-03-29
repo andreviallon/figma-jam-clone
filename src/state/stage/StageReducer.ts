@@ -74,10 +74,10 @@ export const stageReducer = (
         return state;
       }
 
-    case SHAPE_ACTIONS.REMOVE_SHAPE:
+    case SHAPE_ACTIONS.DELETE_SHAPE:
       return {
         ...state,
-        shapes: state.shapes?.filter((_shape, index) => index !== action.index),
+        shapes: state.shapes?.filter((shape) => shape.id !== action.shapeId),
       };
     default:
       return state;

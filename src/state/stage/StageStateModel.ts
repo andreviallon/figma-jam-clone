@@ -7,7 +7,7 @@ export type StageState = {
 export type StageShapeAction = {
   type: string;
   shape?: Shape;
-  index?: number;
+  shapeId?: string;
 };
 
 export type StageStateDispatchType = (
