@@ -1,7 +1,10 @@
 import { KeysEnum } from "../models/keys";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 
 export const useKeyPress = (targetKey: KeysEnum) => {
+  const { disableShortcuts } = useSelector((state: RootState) => state.tool);
   const [keyPressed, setKeyPressed] = useState(false);
 
   useEffect(() => {
@@ -21,5 +24,6 @@ export const useKeyPress = (targetKey: KeysEnum) => {
     };
   }, [targetKey]);
 
+  if (disableShortcuts) return;
   return keyPressed;
 };
