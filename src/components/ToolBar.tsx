@@ -3,15 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { ToolEnum } from "../models/tool";
 import { selectTool } from "../state/tool/ToolActions";
-import { faArrowPointer } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowPointer,
+  faRedo,
+  faUndo,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faCircle,
   faHandPaper,
   faSquare,
 } from "@fortawesome/free-regular-svg-icons";
 import { KeysEnum } from "../models/keys";
-import { useKeyPress } from "../helper/useKetPress";
+import { useKeyPress } from "../helper/useKeyPress";
 import { useEffect, useState } from "react";
+import { ActionEnum } from "../models/action";
 
 export const ToolBar = () => {
   const dispatch = useDispatch();
@@ -73,6 +78,13 @@ export const ToolBar = () => {
             tool={ToolEnum.CIRCLE}
             selectedTool={selectedTool}
           />
+        </div>
+        <div className="border-b border-solid border-gray-300 mx-1" />
+        <div>
+          <ToolBtn faIcon={faUndo} action={ActionEnum.UNDO} disabled={true} />
+        </div>
+        <div>
+          <ToolBtn faIcon={faRedo} action={ActionEnum.UNDO} disabled={true} />
         </div>
       </div>
     </div>
