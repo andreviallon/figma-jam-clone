@@ -5,43 +5,68 @@ interface Props {
   label?: string;
   value: string;
   updateValue: (value: string) => void;
+  disableShortcuts: (value: boolean) => void;
 }
 
 export const InputText: React.FC<Props> = ({
   label,
   value,
   updateValue,
+  disableShortcuts,
 }) => {
   const [inputValue, setInputValue] = useState<string>(value.toString());
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     setInputValue(value.toString());
   }, [value]);
 
+  useEffect(() => {
+    disableShortcuts(focused);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focused]);
+
+  const onFocus = () => setFocused(true);
+
+  const onBlur = () => {
+    setFocused(false);
+    dispatchValue();
+  };
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event?.currentTarget?.value);
+    validateInput();
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.code === KeysEnum.ENTER) updateValue(event?.currentTarget?.value);
+    if (event.code === KeysEnum.ENTER) {
+      dispatchValue();
+    }
+  };
+
+  const validateInput = (): boolean => {
+    const regexPattern = `^#(?:[0-9a-fA-F]{6})$`;
+
+    return inputValue.match(regexPattern) !== null;
+  };
+
+  const dispatchValue = () => {
+    if (!validateInput()) {
+      setInputValue(value.toString());
+    } else {
+      updateValue(inputValue);
+    }
   };
 
   return (
-    <div className="flex flex-col gap-0.5 w-full">
-      {label && (
-        <label className="text-xs text-gray-400 font-medium capitalize">
-          {label}
-        </label>
-      )}
-
-      <input
-        className="text-xs text-gray-700 font-medium w-full p-2 bg-gray-100 border border-gray-300"
-        type="text"
-        value={inputValue}
-        onChange={(event) => handleInputChange(event)}
-        onBlur={() => updateValue(inputValue)}
-        onKeyDown={handleKeyDown}
-      />
-    </div>
+    <input
+      className="text-xs text-gray-700 font-medium w-full p-2 bg-gray-100 border border-gray-300"
+      type="text"
+      value={inputValue}
+      onChange={handleInputChange}
+      onBlur={onBlur}
+      onFocus={onFocus}
+      onKeyDown={handleKeyDown}
+    />
   );
 };

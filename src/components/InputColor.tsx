@@ -1,16 +1,29 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 interface Props {
   color: string;
   updateValue: (value: string) => void;
+  disableShortcuts: (value: boolean) => void;
 }
 
 export const InputColor: React.FC<Props> = ({
   color,
   updateValue,
+  disableShortcuts,
 }) => {
+  const [focused, setFocused] = useState(false);
+
+  useEffect(() => {
+    disableShortcuts(focused);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focused]);
+
+  const onFocus = () => setFocused(true);
+
+  const onBlur = () => setFocused(false);
+
   const handleInputColorChange = (event: ChangeEvent<HTMLInputElement>) => {
-    updateValue(event.target.value);
+    updateValue(event.target.value ? event.target.value : "#000000");
   };
 
   return (
@@ -19,6 +32,8 @@ export const InputColor: React.FC<Props> = ({
       name="fill"
       type="color"
       value={color}
+      onFocus={onFocus}
+      onBlur={onBlur}
       onChange={handleInputColorChange}
     />
   );

@@ -5,10 +5,7 @@ interface Props {
   updateValue: (value: boolean) => void;
 }
 
-export const InputCheckbox: React.FC<Props> = ({
-  value,
-  updateValue,
-}) => {
+export const InputCheckbox: React.FC<Props> = ({ value, updateValue }) => {
   const [inputValue, setInputValue] = useState<boolean>(value);
 
   useEffect(() => {
@@ -21,10 +18,6 @@ export const InputCheckbox: React.FC<Props> = ({
   };
 
   return (
-    <input
-      type="checkbox"
-      checked={inputValue}
-      onChange={(event) => handleInputChange(event)}
-    />
+    <input type="checkbox" checked={inputValue} onChange={handleInputChange} />
   );
 };
