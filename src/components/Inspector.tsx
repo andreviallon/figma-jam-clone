@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Shape } from "../models/shape";
-import { updateShape } from "../state/stage/StageActions";
+import { deleteShape, updateShape } from "../state/stage/StageActions";
 import { RootState } from "../state/store";
 import { InputCheckbox } from "./InputCheckbox";
 import { InputColor } from "./InputColor";
@@ -26,6 +26,10 @@ export const Inspector = () => {
   ) => {
     if (selectedShape)
       dispatch(updateShape({ ...selectedShape, [key]: value }));
+  };
+
+  const dispatchDeleteShape = () => {
+    selectedShapeId && dispatch(deleteShape(selectedShapeId));
   };
 
   useEffect(() => {
@@ -122,6 +126,14 @@ export const Inspector = () => {
                   dispatchUpdateShape("strokeWidth", newValue)
                 }
               />
+            <div className="mt-2">
+              <InspectorGroupLabel label="Actions" />
+              <button
+                className="mt-2 p-1.5 w-full bg-red-500 text-white rounded hover:bg-red-600 transition font-medium"
+                onClick={dispatchDeleteShape}
+              >
+                <span className="pr-2">Delete</span>
+              </button>
             </div>
           </>
         ) : (
