@@ -79,7 +79,7 @@ export const ToolBar = () => {
             selectedTool={selectedTool}
           />
         </div>
-        <div className="border-b border-solid border-gray-300 mx-1" />
+        <div className="border-b border-solid border-gray-300 my-2 mx-1" />
         <div>
           <ToolBtn faIcon={faUndo} action={ActionEnum.UNDO} disabled={true} />
         </div>
