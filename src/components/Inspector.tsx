@@ -8,6 +8,7 @@ import { InputColor } from "./InputColor";
 import { InspectorGroupLabel } from "./InspectorGroupLabel";
 import { InputNumber } from "./InputNumber";
 import { InputText } from "./InputText";
+import { disableShortcuts } from "../state/tool/ToolActions";
 
 export const Inspector = () => {
   const [selectedShape, setSelectedShape] = useState<Shape | undefined>(
@@ -32,6 +33,10 @@ export const Inspector = () => {
     selectedShapeId && dispatch(deleteShape(selectedShapeId));
   };
 
+  const dispatchDisableShortcuts = (disable: boolean) => {
+    dispatch(disableShortcuts(disable));
+  };
+
   useEffect(() => {
     setSelectedShape(shapes?.find((shape) => shape.id === selectedShapeId));
   }, [shapes, selectedShapeId, selectedShape]);
@@ -42,21 +47,31 @@ export const Inspector = () => {
         {selectedShape ? (
           <>
             <div className="flex flex-col gap-2">
+              <InspectorGroupLabel label="Properties" />
               <InputNumber
                 label="x"
                 value={selectedShape.x}
                 updateValue={(newValue) => dispatchUpdateShape("x", newValue)}
+                disableShortcuts={(disable: boolean) =>
+                  dispatchDisableShortcuts(disable)
+                }
               />
               <InputNumber
                 label="y"
                 value={selectedShape.y}
                 updateValue={(newValue) => dispatchUpdateShape("y", newValue)}
+                disableShortcuts={(disable: boolean) =>
+                  dispatchDisableShortcuts(disable)
+                }
               />
               <InputNumber
                 label="Width"
                 value={selectedShape.width}
                 updateValue={(newValue) =>
                   dispatchUpdateShape("width", newValue)
+                }
+                disableShortcuts={(disable: boolean) =>
+                  dispatchDisableShortcuts(disable)
                 }
               />
               <InputNumber
@@ -65,12 +80,18 @@ export const Inspector = () => {
                 updateValue={(newValue) =>
                   dispatchUpdateShape("height", newValue)
                 }
+                disableShortcuts={(disable: boolean) =>
+                  dispatchDisableShortcuts(disable)
+                }
               />
               <InputNumber
                 label="Rotation"
                 value={selectedShape.rotation}
                 updateValue={(newValue) =>
                   dispatchUpdateShape("rotation", newValue)
+                }
+                disableShortcuts={(disable: boolean) =>
+                  dispatchDisableShortcuts(disable)
                 }
               />
             </div>
@@ -83,12 +104,18 @@ export const Inspector = () => {
                     updateValue={(newValue) =>
                       dispatchUpdateShape("color", newValue)
                     }
+                    disableShortcuts={(disable: boolean) =>
+                      dispatchDisableShortcuts(disable)
+                    }
                   />
                 </div>
                 <InputText
                   value={selectedShape.color}
                   updateValue={(newValue) =>
                     dispatchUpdateShape("color", newValue)
+                  }
+                  disableShortcuts={(disable: boolean) =>
+                    dispatchDisableShortcuts(disable)
                   }
                 />
               </div>
@@ -110,6 +137,9 @@ export const Inspector = () => {
                     updateValue={(newValue) =>
                       dispatchUpdateShape("strokeColor", newValue)
                     }
+                    disableShortcuts={(disable: boolean) =>
+                      dispatchDisableShortcuts(disable)
+                    }
                   />
                 </div>
                 <InputText
@@ -117,15 +147,24 @@ export const Inspector = () => {
                   updateValue={(newValue) =>
                     dispatchUpdateShape("strokeColor", newValue)
                   }
+                  disableShortcuts={(disable: boolean) =>
+                    dispatchDisableShortcuts(disable)
+                  }
                 />
               </div>
-              <InputNumber
-                label="Stroke Width"
-                value={selectedShape.strokeWidth}
-                updateValue={(newValue) =>
-                  dispatchUpdateShape("strokeWidth", newValue)
-                }
-              />
+              <div className="mt-2">
+                <InputNumber
+                  label="Stroke Width"
+                  value={selectedShape.strokeWidth}
+                  updateValue={(newValue) =>
+                    dispatchUpdateShape("strokeWidth", newValue)
+                  }
+                  disableShortcuts={(disable: boolean) =>
+                    dispatchDisableShortcuts(disable)
+                  }
+                />
+              </div>
+            </div>
             <div className="mt-2">
               <InspectorGroupLabel label="Actions" />
               <button

@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { Shape } from "../models/shape";
 import { KonvaEventObject } from "konva/lib/Node";
-import {
-  addShape,
-  deleteShape,
-  updateShape,
-} from "../state/stage/StageActions";
+import { addShape, updateShape } from "../state/stage/StageActions";
 import { resetCursor, setCursor } from "../helper/cursorHelper";
 import { drawBasicShape, drawEnd, drawShape } from "../helper/drawHelper";
 import { Layer, Stage } from "react-konva";
@@ -18,8 +14,6 @@ import {
   selectShape,
 } from "../state/selection/SelectionActions";
 import { StageOffset } from "../models/stage";
-import { useKeyPress } from "../helper/useKetPress";
-import { KeysEnum } from "../models/keys";
 
 interface Window {
   width: number;
@@ -32,23 +26,19 @@ function getWindowDimensions(): Window {
 }
 
 export const Scene = () => {
-  const { shapes } = useSelector((state: RootState) => state.stage);
+  const { shapes, history, historyIndex } = useSelector(
+    (state: RootState) => state.stage
+  );
   const { selectedShapeId } = useSelector(
     (state: RootState) => state.selection
   );
   const { selectedTool } = useSelector((state: RootState) => state.tool);
   const [newShape, setNewShape] = useState<Shape | null>(null);
   const [shapesToDraw, setShapesToDraw] = useState<Shape[]>([]);
-  const backspacePressed = useKeyPress(KeysEnum.BACKSPACE);
 
   const stageRef: any = React.useRef();
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    selectedShapeId && dispatch(deleteShape(selectedShapeId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [backspacePressed]);
 
   const dispatchDrawShape = (shape: Shape) => {
     dispatch(addShape(shape));
@@ -69,6 +59,11 @@ export const Scene = () => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
+
+  useEffect(() => {
+    console.log("history =>", history);
+    console.log("historyIndex =>", historyIndex);
+  }, [history, historyIndex]);
 
   useEffect(() => {
     const handleResize = () => setWindowDimensions(getWindowDimensions());
