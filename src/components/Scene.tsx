@@ -26,7 +26,7 @@ function getWindowDimensions(): Window {
 }
 
 export const Scene = () => {
-  const { shapes, history, historyIndex } = useSelector(
+  const { past, present, future } = useSelector(
     (state: RootState) => state.stage
   );
   const { selectedShapeId } = useSelector(
@@ -74,12 +74,12 @@ export const Scene = () => {
   useEffect(() => {
     const toDraw: Shape[] = [];
 
-    if (shapes) toDraw.push(...shapes);
+    if (present.shapes) toDraw.push(...present.shapes);
 
     if (newShape) toDraw.push(newShape);
 
     setShapesToDraw(toDraw);
-  }, [shapes, newShape]);
+  }, [present.shapes, newShape]);
 
   useEffect(() => {
     setCursor(selectedTool);

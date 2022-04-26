@@ -1,6 +1,6 @@
 import { StageShapeAction, StageState } from "./StageStateModel";
 import { ShapeEnum } from "../../models/shape";
-import { SHAPE_ACTIONS } from "./StageActions";
+import { STAGE_ACTIONS } from "./StageActions";
 import { generateId } from "../../helper/idHelper";
 
 export const initialStageState: StageState = {

@@ -7,6 +7,8 @@ import { stageReducer } from "./stage/StageReducer";
 import { StageState } from "./stage/StageStateModel";
 import { toolReducer } from "./tool/ToolReducer";
 import { ToolState } from "./tool/ToolStateModel";
+import undoable, { includeAction } from "redux-undo";
+import { STAGE_ACTIONS } from "./stage/StageActions";
 
 export interface IState {
   stage: StageState;
@@ -15,7 +17,16 @@ export interface IState {
 }
 
 export const rootReducer = combineReducers({
-  stage: stageReducer,
+  stage: undoable(stageReducer, {
+    filter: includeAction([
+      STAGE_ACTIONS.ADD_SHAPE,
+      STAGE_ACTIONS.UPDATE_SHAPE,
+      STAGE_ACTIONS.DELETE_SHAPE,
+    ]),
+    debug: true,
+    undoType: STAGE_ACTIONS.UNDO,
+    redoType: STAGE_ACTIONS.REDO,
+  }),
   tool: toolReducer,
   selection: selectionReducer,
 });

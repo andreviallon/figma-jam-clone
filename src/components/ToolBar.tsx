@@ -17,9 +17,11 @@ import { KeysEnum } from "../models/keys";
 import { useKeyPress } from "../helper/useKeyPress";
 import { useEffect, useState } from "react";
 import { ActionEnum } from "../models/action";
+import { redo, undo } from "../state/stage/StageActions";
 
 export const ToolBar = () => {
   const dispatch = useDispatch();
+  const { past, future } = useSelector((state: RootState) => state.stage);
   const { selectedTool } = useSelector((state: RootState) => state.tool);
   const [prevTool, setPrevTool] = useState(ToolEnum.POINTER);
 
@@ -80,11 +82,19 @@ export const ToolBar = () => {
           />
         </div>
         <div className="border-b border-solid border-gray-300 my-2 mx-1" />
-        <div>
-          <ToolBtn faIcon={faUndo} action={ActionEnum.UNDO} disabled={true} />
+        <div onClick={() => dispatch(undo())}>
+          <ToolBtn
+            faIcon={faUndo}
+            action={ActionEnum.UNDO}
+            disabled={past.length === 0}
+          />
         </div>
-        <div>
-          <ToolBtn faIcon={faRedo} action={ActionEnum.UNDO} disabled={true} />
+        <div onClick={() => dispatch(redo())}>
+          <ToolBtn
+            faIcon={faRedo}
+            action={ActionEnum.UNDO}
+            disabled={future.length === 0}
+          />
         </div>
       </div>
     </div>

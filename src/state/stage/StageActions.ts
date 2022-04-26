@@ -5,6 +5,8 @@ export const STAGE_ACTIONS = {
   ADD_SHAPE: "Add Shape",
   UPDATE_SHAPE: "Update Shape",
   DELETE_SHAPE: "Delete Shape",
+  UNDO: "Undo",
+  REDO: "Redo",
 };
 
 export const addShape =
@@ -19,5 +21,13 @@ export const updateShape =
 
 export const deleteShape =
   (shapeId: string) => async (dispatch: StageStateDispatchType) => {
-    dispatch({ type: SHAPE_ACTIONS.DELETE_SHAPE, shapeId });
+    dispatch({ type: STAGE_ACTIONS.DELETE_SHAPE, shapeId });
   };
+
+export const undo = () => async (dispatch: StageStateDispatchType) => {
+  dispatch({ type: STAGE_ACTIONS.UNDO });
+};
+
+export const redo = () => async (dispatch: StageStateDispatchType) => {
+  dispatch({ type: STAGE_ACTIONS.REDO });
+};

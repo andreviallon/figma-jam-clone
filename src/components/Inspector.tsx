@@ -14,7 +14,7 @@ export const Inspector = () => {
   const [selectedShape, setSelectedShape] = useState<Shape | undefined>(
     undefined
   );
-  const { shapes } = useSelector((state: RootState) => state.stage);
+  const { present } = useSelector((state: RootState) => state.stage);
   const { selectedShapeId } = useSelector(
     (state: RootState) => state.selection
   );
@@ -38,8 +38,10 @@ export const Inspector = () => {
   };
 
   useEffect(() => {
-    setSelectedShape(shapes?.find((shape) => shape.id === selectedShapeId));
-  }, [shapes, selectedShapeId, selectedShape]);
+    setSelectedShape(
+      present.shapes?.find((shape) => shape.id === selectedShapeId)
+    );
+  }, [present.shapes, selectedShapeId, selectedShape]);
 
   return (
     <div className="flex z-50 bg-gray-100 w-full h-full">
