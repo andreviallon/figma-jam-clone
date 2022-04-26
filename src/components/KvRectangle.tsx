@@ -44,6 +44,10 @@ export const KvRectangle: React.FC<Props> = ({
   const shapeRef: any = React.useRef();
   const trRef: any = React.useRef();
 
+  const [previousShape, setPreviousShape] = React.useState<Shape | undefined>(
+    undefined
+  );
+
   const dispatchUpdateShape = () => {
     const newShape: Shape = {
       id,
@@ -61,7 +65,11 @@ export const KvRectangle: React.FC<Props> = ({
       rotation: Math.round(shapeRef.current.attrs.rotation),
     };
 
-    onUpdateShape(newShape);
+    setPreviousShape(newShape);
+
+    if (JSON.stringify(previousShape) !== JSON.stringify(newShape)) {
+      onUpdateShape(newShape);
+    }
   };
 
   useEffect(() => {
@@ -77,7 +85,6 @@ export const KvRectangle: React.FC<Props> = ({
         x={offsetX ? x - offsetX : x}
         y={offsetY ? y - offsetY : y}
         ref={shapeRef}
-        __art
         width={width}
         height={height}
         rotation={rotation}
@@ -88,13 +95,10 @@ export const KvRectangle: React.FC<Props> = ({
         isSelected={isSelected}
         onClick={() => onSelect(id)}
         onDragStart={() => onSelect(id)}
-        onDragMove={() => dispatchUpdateShape()}
-        onTransform={() => dispatchUpdateShape()}
-        onMouseDown={() => {
-          dispatchUpdateShape();
-          onSelect(id);
-        }}
+        onMouseDown={() => onSelect(id)}
+        onDragEnd={() => dispatchUpdateShape()}
         onMouseUp={() => dispatchUpdateShape()}
+        onTransformEnd={() => dispatchUpdateShape()}
       />
       {isSelectable && isSelected && (
         <Transformer
