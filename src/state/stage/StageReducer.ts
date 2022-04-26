@@ -43,7 +43,7 @@ export const stageReducer = (
   action: StageShapeAction
 ): StageState => {
   switch (action.type) {
-    case SHAPE_ACTIONS.ADD_SHAPE:
+    case STAGE_ACTIONS.ADD_SHAPE:
       const shape = action.shape;
 
       if (shape) {
@@ -56,7 +56,7 @@ export const stageReducer = (
         return state;
       }
 
-    case SHAPE_ACTIONS.UPDATE_SHAPE:
+    case STAGE_ACTIONS.UPDATE_SHAPE:
       if (state.shapes) {
         const newShapesArray = [];
 
@@ -74,7 +74,7 @@ export const stageReducer = (
         return state;
       }
 
-    case SHAPE_ACTIONS.DELETE_SHAPE:
+    case STAGE_ACTIONS.DELETE_SHAPE:
       return {
         ...state,
         shapes: state.shapes?.filter((shape) => shape.id !== action.shapeId),

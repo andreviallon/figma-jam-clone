@@ -1,4 +1,4 @@
-import { SHAPE_ACTIONS } from "./SelectionActions";
+import { SELECTION_ACTIONS } from "./SelectionActions";
 import { SelectionShapeAction, SelectionState } from "./SelectionStateModel";
 
 export const initialSelectionState: SelectionState = {
@@ -10,9 +10,9 @@ export const selectionReducer = (
   action: SelectionShapeAction
 ): SelectionState => {
   switch (action.type) {
-    case SHAPE_ACTIONS.SELECT_SHAPE:
+    case SELECTION_ACTIONS.SELECT_SHAPE:
       return { ...state, selectedShapeId: action.selectedShapeId };
-    case SHAPE_ACTIONS.RESET_SELECTION:
+    case SELECTION_ACTIONS.RESET_SELECTION:
       return { ...state, selectedShapeId: null };
     default:
       return state;
