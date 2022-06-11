@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { Rect, Transformer } from "react-konva";
 import { Shape, ShapeEnum } from "../models/shape";
 
