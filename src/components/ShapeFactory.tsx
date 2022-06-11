@@ -1,10 +1,8 @@
-import { Shape, ShapeEnum } from "../models/shape";
-import { KvCircle } from "./KvCircle";
+import { Shape } from "../models/shape";
 import { KvRectangle } from "./KvRectangle";
 
 interface Props {
   id: string;
-  shape: ShapeEnum;
   x: number;
   y: number;
   offsetX: number;
@@ -27,7 +25,6 @@ interface Props {
 
 export const ShapeFactory: React.FC<Props> = ({
   id,
-  shape,
   x,
   y,
   offsetX,
@@ -47,27 +44,27 @@ export const ShapeFactory: React.FC<Props> = ({
   onSelect,
   onUpdateShape,
 }) => {
-    return (
-      <KvRectangle
-        id={id}
-        x={x}
-        y={y}
-        offsetX={offsetX}
-        offsetY={offsetY}
-        width={width}
-        height={height}
+  return (
+    <KvRectangle
+      id={id}
+      x={x}
+      y={y}
+      offsetX={offsetX}
+      offsetY={offsetY}
+      width={width}
+      height={height}
       scaleX={scaleX}
       scaleY={scaleY}
-        rotation={rotation}
-        color={color}
-        hasStroke={hasStroke}
-        strokeColor={strokeColor}
-        strokeWidth={strokeWidth}
-        isSelected={isSelected}
-        isSelectable={isSelectable}
-        isDraggable={isDraggable}
-        onSelect={(id: string) => onSelect(id)}
-        onUpdateShape={(newShape: Shape) => onUpdateShape(newShape)}
-      />
-    );
+      rotation={rotation}
+      color={color}
+      hasStroke={hasStroke}
+      strokeColor={strokeColor}
+      strokeWidth={strokeWidth}
+      isSelected={isSelected}
+      isSelectable={isSelectable}
+      isDraggable={isDraggable}
+      onSelect={(id: string) => onSelect(id)}
+      onUpdateShape={(newShape: Shape) => onUpdateShape(newShape)}
+    />
+  );
 };
