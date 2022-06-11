@@ -26,9 +26,7 @@ function getWindowDimensions(): Window {
 }
 
 export const Scene = () => {
-  const { past, present, future } = useSelector(
-    (state: RootState) => state.stage
-  );
+  const { present } = useSelector((state: RootState) => state.stage);
   const { selectedShapeId } = useSelector(
     (state: RootState) => state.selection
   );
@@ -59,11 +57,6 @@ export const Scene = () => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
-
-  useEffect(() => {
-    console.log("history =>", history);
-    console.log("historyIndex =>", historyIndex);
-  }, [history, historyIndex]);
 
   useEffect(() => {
     const handleResize = () => setWindowDimensions(getWindowDimensions());
