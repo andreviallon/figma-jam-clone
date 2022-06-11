@@ -10,6 +10,8 @@ interface Props {
   offsetY: number | undefined;
   width?: number;
   height?: number;
+  scaleX?: number;
+  scaleY?: number;
   color?: string;
   hasStroke: boolean;
   strokeColor: string;
@@ -22,7 +24,7 @@ interface Props {
   onUpdateShape: (newShape: Shape) => void;
 }
 
-export const KvRectangle: React.FC<Props> = ({
+export const KvRectangle: FC<Props> = ({
   id,
   x,
   y,
@@ -30,6 +32,8 @@ export const KvRectangle: React.FC<Props> = ({
   offsetY,
   width = 100,
   height = 100,
+  scaleX = 1,
+  scaleY = 1,
   color = "#555555",
   hasStroke = false,
   strokeColor = "#000000",
@@ -62,6 +66,8 @@ export const KvRectangle: React.FC<Props> = ({
       y: Math.round(shapeRef.current.attrs.y),
       width: Math.round(shapeRef.current.attrs.width),
       height: Math.round(shapeRef.current.attrs.height),
+      scaleX: shapeRef.current.attrs.scaleX,
+      scaleY: shapeRef.current.attrs.scaleY,
       rotation: Math.round(shapeRef.current.attrs.rotation),
     };
 
@@ -87,6 +93,8 @@ export const KvRectangle: React.FC<Props> = ({
         ref={shapeRef}
         width={width}
         height={height}
+        scaleX={scaleX}
+        scaleY={scaleY}
         rotation={rotation}
         fill={color}
         stroke={hasStroke ? strokeColor : undefined}

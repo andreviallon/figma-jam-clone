@@ -68,20 +68,24 @@ export const Inspector = () => {
               />
               <InputNumber
                 label="Width"
-                value={selectedShape.width}
-                updateValue={(newValue) =>
-                  dispatchUpdateShape("width", newValue)
-                }
+                value={Math.round(selectedShape.width * selectedShape.scaleX)}
+                updateValue={(newValue) => {
+                  updateShape({ ...selectedShape, width: newValue, scaleX: 1 });
+                }}
                 disableShortcuts={(disable: boolean) =>
                   dispatchDisableShortcuts(disable)
                 }
               />
               <InputNumber
                 label="Height"
-                value={selectedShape.height}
-                updateValue={(newValue) =>
-                  dispatchUpdateShape("height", newValue)
-                }
+                value={Math.round(selectedShape.height * selectedShape.scaleY)}
+                updateValue={(newValue) => {
+                  updateShape({
+                    ...selectedShape,
+                    height: newValue,
+                    scaleY: 1,
+                  });
+                }}
                 disableShortcuts={(disable: boolean) =>
                   dispatchDisableShortcuts(disable)
                 }

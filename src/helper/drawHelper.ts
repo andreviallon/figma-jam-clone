@@ -13,6 +13,8 @@ const basicRectangle: Shape = {
   offsetY: 0,
   width: 0,
   height: 0,
+  scaleX: 1,
+  scaleY: 1,
   rotation: 0,
   color: "#555555",
   hasStroke: false,

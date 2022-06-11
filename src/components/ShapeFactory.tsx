@@ -11,6 +11,8 @@ interface Props {
   offsetY: number;
   width?: number;
   height?: number;
+  scaleX?: number;
+  scaleY?: number;
   rotation: number;
   color?: string;
   hasStroke: boolean;
@@ -32,6 +34,8 @@ export const ShapeFactory: React.FC<Props> = ({
   offsetY,
   width = 100,
   height = 100,
+  scaleX = 1,
+  scaleY = 1,
   rotation,
   color = "#555555",
   hasStroke = false,

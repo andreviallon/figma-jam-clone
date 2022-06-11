@@ -1,7 +1,5 @@
 export enum ShapeEnum {
   RECTANGLE = "rectangle",
-  CIRCLE = "circle",
-  TRIANGLE = "triangle",
 }
 
 export interface Shape {
@@ -11,6 +9,8 @@ export interface Shape {
   y: number;
   width: number;
   height: number;
+  scaleX: number;
+  scaleY: number;
   rotation: number;
   color: string;
   hasStroke: boolean;
