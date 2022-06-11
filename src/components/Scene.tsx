@@ -86,10 +86,7 @@ export const Scene = () => {
   }, [selectedTool]);
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (selectedTool === ToolEnum.RECTANGLE)
-      setNewShape(drawBasicShape(selectedTool, event));
-    if (selectedTool === ToolEnum.CIRCLE)
-      setNewShape(drawBasicShape(selectedTool, event));
+    if (selectedTool === ToolEnum.RECTANGLE) setNewShape(drawBasicShape(event));
   };
 
   const handleMouseMove = (event: KonvaEventObject<MouseEvent>) => {

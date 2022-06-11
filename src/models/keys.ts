@@ -3,7 +3,6 @@ export enum KeysEnum {
   BACKSPACE = "Backspace",
   ESCAPE = "Escape",
   SPACE = " ",
-  O = "o",
   H = "h",
   R = "r",
   V = "v",

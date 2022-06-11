@@ -1,6 +1,5 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { Shape, ShapeEnum } from "../models/shape";
-import { ToolEnum } from "../models/tool";
 import { generateId } from "./idHelper";
 import { StageOffset } from "../models/stage";
 
@@ -22,41 +21,13 @@ const basicRectangle: Shape = {
   strokeWidth: 1,
 };
 
-const basicCircle: Shape = {
-  id: generateId(),
-  shape: ShapeEnum.CIRCLE,
-  x: 0,
-  y: 0,
-  offsetX: 0,
-  offsetY: 0,
-  width: 0,
-  height: 0,
-  rotation: 0,
-  color: "#555555",
-  hasStroke: true,
-  strokeColor: "#000000",
-  strokeWidth: 5,
-};
-
-export const drawBasicShape = (
-  selectedTool: ToolEnum,
-  event: KonvaEventObject<MouseEvent>
-): Shape => {
-  if (selectedTool === ToolEnum.RECTANGLE) {
+export const drawBasicShape = (event: KonvaEventObject<MouseEvent>): Shape => {
     return {
       ...basicRectangle,
       x: event?.target?.getStage()?.getPointerPosition()?.x ?? 0,
       y: event?.target?.getStage()?.getPointerPosition()?.y ?? 0,
       id: generateId(),
     };
-  } else {
-    return {
-      ...basicCircle,
-      x: event?.target?.getStage()?.getPointerPosition()?.x ?? 0,
-      y: event?.target?.getStage()?.getPointerPosition()?.y ?? 0,
-      id: generateId(),
-    };
-  }
 };
 
 export const drawShape = (

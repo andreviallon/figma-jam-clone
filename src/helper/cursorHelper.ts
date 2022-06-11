@@ -10,7 +10,7 @@ export const setCursor = (selectedTool: ToolEnum) => {
     document.body.style.cursor = CursorEnum.MOVE;
   }
 
-  if (selectedTool === ToolEnum.RECTANGLE || selectedTool === ToolEnum.CIRCLE) {
+  if (selectedTool === ToolEnum.RECTANGLE) {
     document.body.style.cursor = CursorEnum.CROSSHAIR;
   }
 };

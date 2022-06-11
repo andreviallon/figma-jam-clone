@@ -47,7 +47,6 @@ export const ShapeFactory: React.FC<Props> = ({
   onSelect,
   onUpdateShape,
 }) => {
-  if (shape === ShapeEnum.RECTANGLE) {
     return (
       <KvRectangle
         id={id}
@@ -57,6 +56,8 @@ export const ShapeFactory: React.FC<Props> = ({
         offsetY={offsetY}
         width={width}
         height={height}
+      scaleX={scaleX}
+      scaleY={scaleY}
         rotation={rotation}
         color={color}
         hasStroke={hasStroke}
@@ -69,19 +70,4 @@ export const ShapeFactory: React.FC<Props> = ({
         onUpdateShape={(newShape: Shape) => onUpdateShape(newShape)}
       />
     );
-  } else {
-    return (
-      <KvCircle
-        id={id}
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        rotation={rotation}
-        color={color}
-        isSelected={isSelected}
-        onSelect={(id: string) => onSelect(id)}
-      />
-    );
-  }
 };

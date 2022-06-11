@@ -30,19 +30,18 @@ export const ToolBar = () => {
   };
 
   const spacePressed = useKeyPress(KeysEnum.SPACE);
-  const oPressed = useKeyPress(KeysEnum.O);
   const hPressed = useKeyPress(KeysEnum.H);
   const rPressed = useKeyPress(KeysEnum.R);
   const vPressed = useKeyPress(KeysEnum.V);
+  const zPressed = useKeyPress(KeysEnum.Z);
 
   useEffect(() => {
-    oPressed && setSelectedTool(ToolEnum.CIRCLE);
     hPressed && setSelectedTool(ToolEnum.MOVE);
     rPressed && setSelectedTool(ToolEnum.RECTANGLE);
     vPressed && setSelectedTool(ToolEnum.POINTER);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [oPressed, hPressed, vPressed, rPressed]);
+  }, [hPressed, vPressed, rPressed]);
 
   useEffect(() => {
     setPrevTool(selectedTool);
@@ -71,13 +70,6 @@ export const ToolBar = () => {
           <ToolBtn
             faIcon={faSquare}
             tool={ToolEnum.RECTANGLE}
-            selectedTool={selectedTool}
-          />
-        </div>
-        <div onClick={() => setSelectedTool(ToolEnum.CIRCLE)}>
-          <ToolBtn
-            faIcon={faCircle}
-            tool={ToolEnum.CIRCLE}
             selectedTool={selectedTool}
           />
         </div>
