@@ -22,12 +22,12 @@ const basicRectangle: Shape = {
 };
 
 export const drawBasicShape = (event: KonvaEventObject<MouseEvent>): Shape => {
-    return {
-      ...basicRectangle,
-      x: event?.target?.getStage()?.getPointerPosition()?.x ?? 0,
-      y: event?.target?.getStage()?.getPointerPosition()?.y ?? 0,
-      id: generateId(),
-    };
+  return {
+    ...basicRectangle,
+    x: event?.target?.getStage()?.getPointerPosition()?.x ?? 0,
+    y: event?.target?.getStage()?.getPointerPosition()?.y ?? 0,
+    id: generateId(),
+  };
 };
 
 export const drawShape = (
