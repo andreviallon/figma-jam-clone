@@ -6,4 +6,5 @@ export enum KeysEnum {
   H = "h",
   R = "r",
   V = "v",
+  Z = "z",
 }
