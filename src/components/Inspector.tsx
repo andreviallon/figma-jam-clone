@@ -70,7 +70,13 @@ export const Inspector = () => {
                 label="Width"
                 value={Math.round(selectedShape.width * selectedShape.scaleX)}
                 updateValue={(newValue) => {
-                  updateShape({ ...selectedShape, width: newValue, scaleX: 1 });
+                  dispatch(
+                    updateShape({
+                      ...selectedShape,
+                      width: newValue,
+                      scaleX: 1,
+                    })
+                  );
                 }}
                 disableShortcuts={(disable: boolean) =>
                   dispatchDisableShortcuts(disable)
@@ -80,11 +86,13 @@ export const Inspector = () => {
                 label="Height"
                 value={Math.round(selectedShape.height * selectedShape.scaleY)}
                 updateValue={(newValue) => {
-                  updateShape({
-                    ...selectedShape,
-                    height: newValue,
-                    scaleY: 1,
-                  });
+                  dispatch(
+                    updateShape({
+                      ...selectedShape,
+                      height: newValue,
+                      scaleY: 1,
+                    })
+                  );
                 }}
                 disableShortcuts={(disable: boolean) =>
                   dispatchDisableShortcuts(disable)
