@@ -8,11 +8,7 @@ import {
   faRedo,
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faCircle,
-  faHandPaper,
-  faSquare,
-} from "@fortawesome/free-regular-svg-icons";
+import { faHandPaper, faSquare } from "@fortawesome/free-regular-svg-icons";
 import { KeysEnum } from "../models/keys";
 import { useKeyPress } from "../helper/useKeyPress";
 import { useEffect, useState } from "react";
