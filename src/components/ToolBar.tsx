@@ -14,6 +14,7 @@ import { useKeyPress } from "../helper/useKeyPress";
 import { useEffect, useState } from "react";
 import { ActionEnum } from "../models/action";
 import { redo, undo } from "../state/stage/StageActions";
+import { useUndoRedoKeyPress } from "../helper/useUndoRedoKeyPress";
 
 export const ToolBar = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ export const ToolBar = () => {
   const hPressed = useKeyPress(KeysEnum.H);
   const rPressed = useKeyPress(KeysEnum.R);
   const vPressed = useKeyPress(KeysEnum.V);
-  const zPressed = useKeyPress(KeysEnum.Z);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const registerUndoRedoShortcut = useUndoRedoKeyPress();
 
   useEffect(() => {
     hPressed && setSelectedTool(ToolEnum.MOVE);
