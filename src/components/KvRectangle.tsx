@@ -73,7 +73,10 @@ export const KvRectangle: FC<Props> = ({
 
     setPreviousShape(newShape);
 
-    if (JSON.stringify(previousShape) !== JSON.stringify(newShape)) {
+    if (
+      JSON.stringify(previousShape) !== undefined &&
+      JSON.stringify(previousShape) !== JSON.stringify(newShape)
+    ) {
       onUpdateShape(newShape);
     }
   };
