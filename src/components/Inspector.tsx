@@ -10,6 +10,11 @@ import { InputNumber } from "./InputNumber";
 import { InputText } from "./InputText";
 import { disableShortcuts } from "../state/tool/ToolActions";
 
+enum Axis {
+  X = "x",
+  Y = "y",
+}
+
 export const Inspector = () => {
   const [selectedShape, setSelectedShape] = useState<Shape | undefined>(
     undefined
@@ -25,8 +30,18 @@ export const Inspector = () => {
     key: string,
     value: number | string | boolean
   ) => {
-    if (selectedShape)
+    if (selectedShape && selectedShape?.[key as keyof Shape] !== value)
       dispatch(updateShape({ ...selectedShape, [key]: value }));
+  };
+
+  const dispatchUpdateShapeDimensions = (axis: Axis, value: number) => {
+    if (axis === Axis.X && selectedShape && selectedShape.width !== value) {
+      dispatch(updateShape({ ...selectedShape, width: value, scaleX: 1 }));
+    }
+
+    if (axis === Axis.Y && selectedShape && selectedShape.height !== value) {
+      dispatch(updateShape({ ...selectedShape, height: value, scaleY: 1 }));
+    }
   };
 
   const dispatchDeleteShape = () => {
@@ -70,13 +85,7 @@ export const Inspector = () => {
                 label="Width"
                 value={Math.round(selectedShape.width * selectedShape.scaleX)}
                 updateValue={(newValue) => {
-                  dispatch(
-                    updateShape({
-                      ...selectedShape,
-                      width: newValue,
-                      scaleX: 1,
-                    })
-                  );
+                  dispatchUpdateShapeDimensions(Axis.X, newValue);
                 }}
                 disableShortcuts={(disable: boolean) =>
                   dispatchDisableShortcuts(disable)
@@ -86,13 +95,7 @@ export const Inspector = () => {
                 label="Height"
                 value={Math.round(selectedShape.height * selectedShape.scaleY)}
                 updateValue={(newValue) => {
-                  dispatch(
-                    updateShape({
-                      ...selectedShape,
-                      height: newValue,
-                      scaleY: 1,
-                    })
-                  );
+                  dispatchUpdateShapeDimensions(Axis.Y, newValue);
                 }}
                 disableShortcuts={(disable: boolean) =>
                   dispatchDisableShortcuts(disable)
