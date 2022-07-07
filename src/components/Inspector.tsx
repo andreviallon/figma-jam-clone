@@ -8,7 +8,9 @@ import { InputColor } from "./InputColor";
 import { InspectorGroupLabel } from "./InspectorGroupLabel";
 import { InputNumber } from "./InputNumber";
 import { InputText } from "./InputText";
+import { ShortcutTip } from "./ShortcutTips";
 import { disableShortcuts } from "../state/tool/ToolActions";
+import { isMacOS } from "../helper/os";
 
 enum Axis {
   X = "x",
@@ -193,9 +195,25 @@ export const Inspector = () => {
             </div>
           </>
         ) : (
-          <p className="text-sm font-medium w-full">
-            Click on a shape to see properties and edit them
-          </p>
+          <div>
+            <p className="text-sm font-medium w-full mb-6">
+              Click on a shape to see properties and edit them
+            </p>
+            <div className="flex flex-col gap-3">
+              <ShortcutTip combo="V" text="pointer" />
+              <ShortcutTip combo="H (Space to toggle)" text="move" />
+              <ShortcutTip combo="R" text="rectangle tool" />
+              <ShortcutTip
+                combo={isMacOS() ? "\u2318 + Z" : "Ctrl + Z"}
+                text="undo"
+              />
+              <ShortcutTip
+                combo={isMacOS() ? "\u2318 + \u21E7 + Z" : "Ctrl + \u21E7 + Z"}
+                text="redo"
+              />
+              <p></p>
+            </div>
+          </div>
         )}
       </div>
     </div>
